@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def create_scatter_plot(x, y, x_label, y_label, title, labels=None, paradox_line=True):
+def create_scatter_plot(x, y, x_label, y_label, title, labels=None, paradox_line=False):
     """
     x, y: lists or arrays of numeric values
     labels: optional list of strings, one per point, to label the scatter points

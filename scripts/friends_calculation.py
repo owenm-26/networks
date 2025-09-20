@@ -1,50 +1,8 @@
-from convert import convert_data_to_adj_list, get_data_paths
-from charts import create_scatter_plot
-from collections import deque
+from convert import  get_data_paths
+from visualizations import create_scatter_plot
+from graph_traversals import get_largest_connected_component
 import os
 import pickle
-
-def get_largest_connected_component(filename: str):
-    """BFS that returns only the nodes in the largest connected component."""
-
-    connected_components = []
-    adj_list = convert_data_to_adj_list(filename=filename)
-    seen = set()
-
-    # print(f"Finished creating adj_list of {filename}. Starting BFS...")
-
-    for key in adj_list.keys():
-        if key not in seen:
-            seen_nodes = bfs(graph=adj_list, start_node=key)
-            connected_components.append(seen_nodes)
-            seen.update(seen_nodes)
-
-    # print(f"Finding the largest component out of {len(connected_components)}")
-    largest_component_index = 0
-    for i in range(1, len(connected_components)):
-        if len(connected_components[i]) > len(connected_components[largest_component_index]):
-            largest_component_index = i
-    
-    return adj_list, connected_components[largest_component_index]
-
-
-def bfs(graph: dict, start_node: int):
-    # print(f"Running BFS on node {start_node}")
-    queue = deque()
-    seen_nodes = set()
-    
-    seen_nodes.add(start_node)
-    queue.append(start_node)
-    
-    while queue:
-        current_node = queue.popleft()        
-        for neighbor in graph.get(current_node, []):
-            if neighbor not in seen_nodes:
-                seen_nodes.add(neighbor)
-                queue.append(neighbor)
-
-    return seen_nodes
-
 
 def average_number_of_friends(graph: dict):
     """Return the average number of friends per node."""
@@ -73,10 +31,7 @@ def get_friends_data_for_all_data(data_dir_path: str, data_paths: list):
         full_path = os.path.join(data_dir_path, item_name)
         if os.path.isfile(full_path):
             print(f"--------- {item_name} ---------")
-            adj_list, list_of_nodes = get_largest_connected_component(full_path)
-            
-            # Build a filtered adjacency list containing only nodes in the largest component
-            narrowed_adj_list = {key: value for key, value in adj_list.items() if key in list_of_nodes}
+            narrowed_adj_list = get_largest_connected_component(full_path)
             
             curr_avg_friends=average_number_of_friends(narrowed_adj_list)
             curr_avg_friends_of_friends = average_number_of_friends_friends(narrowed_adj_list)
