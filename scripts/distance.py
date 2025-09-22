@@ -1,10 +1,11 @@
-from graph_traversals import bfs_distance_between_nodes
-from convert import get_data_paths
-from visualizations import create_scatter_plot
+from .graph_traversals import bfs_distance_between_nodes, floyd_warshall
+from .convert import get_data_paths
+from .visualizations import create_scatter_plot
 import os
 import pickle
 import time
-from utils import run_multithreaded_func_on_all_files, project_root, data_dir_path
+from .multithreading import run_multithreaded_func_on_all_files
+from utils.path_constants import data_dir_path, project_root
 
 def get_distances_between_all_pairs_of_nodes(graph: dict):
     distances = []
@@ -21,7 +22,7 @@ def get_average_shortest_path(distances: list):
 
 if __name__ == "__main__":
     start_time = time.perf_counter()
-    sorted_dir_list=get_data_paths(project_root)[:12]
+    sorted_dir_list=get_data_paths(project_root)[1:2]
 
     save_file = os.path.join(project_root, "distance_and_path_data.pkl")
 
@@ -31,7 +32,7 @@ if __name__ == "__main__":
         print("Loaded precomputed data.")
     else:
         # results of BFS, input to the other functions
-        distances = run_multithreaded_func_on_all_files(func=get_distances_between_all_pairs_of_nodes, file_list=sorted_dir_list)
+        distances = run_multithreaded_func_on_all_files(func=floyd_warshall, file_list=sorted_dir_list)
 
         diameters = [get_diameter(distances=distance_list) for distance_list in distances]
         avg_shortest_path_lengths = [get_average_shortest_path(distances=distance_list) for distance_list in distances]

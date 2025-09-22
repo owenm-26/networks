@@ -1,11 +1,8 @@
 
-from graph_traversals import get_largest_connected_component
+from .graph_traversals import get_largest_connected_component
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
-
-
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-data_dir_path= os.path.join(project_root, "data")
+from utils.path_constants import data_dir_path, project_root
 
 def run_func_on_all_files(func, file_list:list):
     """Runs on all files in a single-threaded way"""
@@ -26,11 +23,12 @@ def run_func_on_one_file(func, filename: str):
     graph = get_largest_connected_component(filename=full_path)
     return func(graph)
 
-def run_multithreaded_func_on_all_files(func, file_list:list, max_workers=6):
+def run_multithreaded_func_on_all_files(func, file_list:list, max_workers=5):
     """Runs on all files in a multi-threaded way"""
     results = []
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         future_to_file = {executor.submit(run_func_on_one_file, func, os.path.join(data_dir_path, file)): file for file in file_list}
         for future in as_completed(future_to_file):
+            print("Thread completed.")
             results.append(future.result())
     return results
