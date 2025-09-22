@@ -22,7 +22,7 @@ def get_average_shortest_path(distances: list):
 
 if __name__ == "__main__":
     start_time = time.perf_counter()
-    sorted_dir_list=get_data_paths(project_root)[1:2]
+    sorted_dir_list=get_data_paths(project_root)[0:1]
 
     save_file = os.path.join(project_root, "distance_and_path_data.pkl")
 
