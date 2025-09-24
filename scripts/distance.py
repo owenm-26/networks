@@ -1,10 +1,10 @@
 from .graph_traversals import bfs_distance_between_nodes, floyd_warshall
-from .convert import get_data_paths
-from .visualizations import create_scatter_plot
+from utils.convert import get_data_paths
+from utils.visualizations import create_scatter_plot
 import os
 import pickle
 import time
-from .multithreading import run_multithreaded_func_on_all_files
+from utils.multithreading import run_multithreaded_func_on_all_files
 from utils.path_constants import data_dir_path, project_root
 
 def get_distances_between_all_pairs_of_nodes(graph: dict):

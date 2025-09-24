@@ -1,5 +1,5 @@
 from collections import deque
-from .convert import convert_data_to_adj_list
+from utils.convert import convert_data_to_adj_list
 
 def bfs_connected_components(graph: dict, start_node: int):
     # print(f"Running BFS on node {start_node}")
