@@ -1,4 +1,4 @@
-from .graph_traversals import bfs_distance_between_nodes, floyd_warshall
+from utils.graph_traversals import bfs_distance_between_nodes, floyd_warshall
 from utils.convert import get_data_paths
 from utils.visualizations import create_scatter_plot
 import os

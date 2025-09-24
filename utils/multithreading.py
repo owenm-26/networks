@@ -1,5 +1,5 @@
 
-from scripts.graph_traversals import get_largest_connected_component
+from utils.graph_traversals import get_largest_connected_component
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from utils.path_constants import data_dir_path, project_root

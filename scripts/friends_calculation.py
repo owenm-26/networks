@@ -1,6 +1,6 @@
 from utils.convert import  get_data_paths
 from utils.visualizations import create_scatter_plot
-from .graph_traversals import get_largest_connected_component
+from utils.graph_traversals import get_largest_connected_component
 import os
 import pickle
 
