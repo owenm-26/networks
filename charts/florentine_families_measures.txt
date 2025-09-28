@@ -1,0 +1,31 @@
+---- Degree ----
+[(6, 'Medici'), (4, 'Strozzi'), (4, 'Guadagni'), (3, 'Tornabuoni'), (3, 'Ridolfi'), (3, 'Peruzzi'),
+ (3, 'Castellani'), (3, 'Bischeri'), (3, 'Albizi'), (2, 'Salviati'), (2, 'Barbadori'), (1, 'Pazzi'), 
+ (1, 'Lambertesci'), (1, 'Ginori'), (1, 'Acciaiuoli'), (0, 'Pucci')]
+
+---- Closeness ----
+[(5.643, 'Peruzzi'), (5.429, 'Bischeri'), (5.357, 'Strozzi'), (5.286, 'Castellani'), (5.0, 'Lambertesci'), 
+(4.857, 'Pazzi'), (4.643, 'Guadagni'), (4.429, 'Salviati'), (4.429, 'Barbadori'), (4.357, 'Acciaiuoli'), 
+(4.286, 'Ginori'), (4.143, 'Ridolfi'), (3.929, 'Albizi'), (3.714, 'Medici'), (3.5, 'Tornabuoni'), (0, 'Pucci')]
+
+---- Betweenness ----
+[(0.522, 'Medici'), (0.255, 'Guadagni'), (0.212, 'Albizi'), (0.143, 'Salviati'), (0.114, 'Ridolfi'), 
+(0.104, 'Bischeri'), (0.103, 'Strozzi'), (0.093, 'Barbadori'), (0.092, 'Tornabuoni'), (0.055, 'Castellani'), 
+(0.022, 'Peruzzi'), (0.0, 'Pazzi'), (0.0, 'Lambertesci'), (0.0, 'Ginori'), (0.0, 'Acciaiuoli')]
+
+---- PageRank ----
+[(0.143, 'Medici'), (0.098, 'Guadagni'), (0.086, 'Strozzi'), (0.08, 'Albizi'), (0.07, 'Tornabuoni'), 
+(0.069, 'Castellani'), (0.068, 'Ridolfi'), (0.068, 'Bischeri'), (0.067, 'Peruzzi'), (0.063, 'Salviati'),
+ (0.051, 'Barbadori'), (0.039, 'Pazzi'), (0.035, 'Ginori'), (0.033, 'Lambertesci'), (0.032, 'Acciaiuoli')]
+
+The Degrees that agree with Padgett and Ansell’s explanation of the Florentine Families Network are
+- Degree
+- Betweenness
+- PageRank
+As Medici is the top of all of these measures. Medici was the bridge between old families and new families
+so they have many connections (degrees) and are significant to the network in terms of shortest path (betwenness).
+Additionally, they are connected to a number of other influential families which thus makes them influential 
+(PageRank). 
+
+The second most important family would be the Guadagni family, given that the come up right behind Medici or in the top
+3 in all measures.

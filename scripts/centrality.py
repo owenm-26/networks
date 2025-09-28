@@ -89,16 +89,22 @@ if __name__ == "__main__":
                         "B": {"A", "C"},
                         "C": {"B", "D"},
                         "D": {"C"}}
+    degree_centralities = get_all_degree_centralities(graph=florentine_family_graph)
+    closeness_centralities = get_all_closeness_centralities(graph=florentine_family_graph)
+    betweenness_centralities = get_all_betweenness_centralities(graph=florentine_family_graph)
+    pagerank_centralities = get_all_pagerank_centralities(graph=florentine_family_graph)
 
-    # degree_centralities = get_all_degree_centralities(graph=florentine_family_graph)
-    # closeness_centralities = get_all_closeness_centralities(graph=florentine_family_graph)
-    # betweenness_centralities = get_all_betweenness_centralities(graph=florentine_family_graph)
-    # pagerank_centralities = get_all_pagerank_centralities(graph=florentine_family_graph)
+    centrality_measures = [degree_centralities, closeness_centralities, betweenness_centralities, pagerank_centralities]
+
+    for i in range(len(centrality_measures)):
+        sorted_decreasing = sorted([(round(value,3), key) for key, value in centrality_measures[i].items()], reverse=True)
+        print(f"---- Measure {i} ----")
+        print(sorted_decreasing, sep="\n")
 
     # print(f"Degree Centralities: {degree_centralities}")
     # print(f"Closeness Centralities: {closeness_centralities}")
     # print(f"Betweenness Centralities: {betweenness_centralities}")
     # print(f"Pagerank Centralities: {pagerank_centralities}")
 
-    display_centralities_in_table(graph=florentine_family_graph)
+    # display_centralities_in_table(graph=florentine_family_graph)
     
