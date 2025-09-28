@@ -105,7 +105,7 @@ def get_largest_connected_component(filename: str):
     
     return narrowed_adj_list
 
-def bfs_distance_between_nodes(graph: dict, starting_node: int):
+def bfs_distance_between_nodes(graph: dict, starting_node):
     queue = deque()
     seen_nodes = set()
 
@@ -126,37 +126,3 @@ def bfs_distance_between_nodes(graph: dict, starting_node: int):
     
     return distances
 
-def floyd_warshall(graph: dict):
-    nodes = list(graph.keys())
-    n = len(nodes)
-    
-    # Map node labels to 0..n-1 indices
-    node_to_idx = {node: i for i, node in enumerate(nodes)}
-    
-    # Initialize distance matrix with +∞ (not -∞!)
-    dist = [[float("inf") for _ in range(n)] for _ in range(n)]
-    
-    # Distance to neighbors is 1
-    for node, neighbors in graph.items():
-        i = node_to_idx[node]
-        for neighbor in neighbors:
-            j = node_to_idx[neighbor]
-            dist[i][j] = 1
-    
-    # Distance to self is 0
-    for i in range(n):
-        dist[i][i] = 0
-    
-    # Floyd-Warshall relaxation
-    for k in range(n):
-        for i in range(n):
-            for j in range(n):
-                if dist[i][k] + dist[k][j] < dist[i][j]:
-                    dist[i][j] = dist[i][k] + dist[k][j]
-    
-    # Flatten distances into a single list
-    distances = []
-    for row in dist:
-        distances.extend(row)
-    
-    return distances

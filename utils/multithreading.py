@@ -11,9 +11,21 @@ def run_func_on_all_files(func, file_list:list):
         print(f"------ Computing for file {file} ------")
         full_path = os.path.join(data_dir_path, file)
         graph = get_largest_connected_component(filename=full_path)
-        print(f"Size of Largest Component: {len(graph.keys())}")
         result.append(func(graph))
     return result
+
+def run_func_on_all_files_distance(func, file_list:list):
+    """Runs on all files in a single-threaded way"""
+    diameters, avg_shortest_paths, largest_connected_components = [], [], []
+    for file in file_list:
+        print(f"------ Computing for file {file} ------")
+        full_path = os.path.join(data_dir_path, file)
+        graph = get_largest_connected_component(filename=full_path)
+        G_diameter, G_avg_shortest_path, G_largest_connected_component = func(graph)
+        diameters.append(G_diameter)
+        avg_shortest_paths.append(G_avg_shortest_path)
+        largest_connected_components.append(G_largest_connected_component)
+    return diameters, avg_shortest_paths, largest_connected_components
 
 def run_func_on_one_file(func, filename: str):
     """Process function for multi-threaded parent function"""
