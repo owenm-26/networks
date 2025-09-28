@@ -1,0 +1,17 @@
+             Degree  Closeness  Betweenness  PageRank
+Peruzzi           3     5.6429       0.0220    0.0669
+Bischeri          3     5.4286       0.1044    0.0678
+Lambertesci       1     5.0000       0.0000    0.0329
+Strozzi           4     5.3571       0.1026    0.0857
+Guadagni          4     4.6429       0.2546    0.0976
+Castellani        3     5.2857       0.0549    0.0686
+Ridolfi           3     4.1429       0.1136    0.0682
+Tornabuoni        3     3.5000       0.0916    0.0701
+Barbadori         2     4.4286       0.0934    0.0507
+Medici            6     3.7143       0.5220    0.1430
+Albizi            3     3.9286       0.2125    0.0796
+Acciaiuoli        1     4.3571       0.0000    0.0324
+Salviati          2     4.4286       0.1429    0.0633
+Ginori            1     4.2857       0.0000    0.0345
+Pucci             0     0.0000          NaN       NaN
+Pazzi             1     4.8571       0.0000    0.0387

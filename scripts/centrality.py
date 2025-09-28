@@ -1,22 +1,23 @@
 from utils.florentine_families import create_florentine_adj_list
-from utils.graph_traversals import bfs_distance_between_nodes, bfs_shortest_paths
+from utils.graph_traversals import bfs_distance_between_nodes
 import networkx as nx
 from utils.networkx import create_networkx_graph_from_adj_list
+import pandas as pd
 
 def get_all_degree_centralities(graph: dict) -> list:
-    degree_centralities = []
+    degree_centralities = {}
     for node in graph.keys():
-        degree_centralities.append(len(graph[node]))
+        degree_centralities[node] = (len(graph[node]))
     return degree_centralities
 
 def get_all_closeness_centralities(graph:dict) -> list:
-    closeness_centralities = []
+    closeness_centralities = {}
     for node in graph.keys():
         distances = bfs_distance_between_nodes(graph=graph, starting_node=node)
         if len(distances) == 0:
-            closeness_centralities.append(0)
+            closeness_centralities[node] = 0
         else:
-            closeness_centralities.append(sum(distances)/len(distances))
+            closeness_centralities[node] = sum(distances)/len(distances)
     return closeness_centralities
 
 def get_all_betweenness_centralities(graph: dict) -> list:
@@ -49,8 +50,30 @@ def get_all_betweenness_centralities(graph: dict) -> list:
     # print("MY:", {key: value / divisor for key, value in node_betweenness_counts.items()})
     # return betweenness_centralities
 
-def get_all_pagerank_centralities(graph: dict, alpha: float = 1.2) -> list:
-    return []
+def get_all_pagerank_centralities(graph: dict, alpha: float = 0.8) -> list:
+    G = create_networkx_graph_from_adj_list(adj_list=graph)
+    return nx.pagerank(G, alpha=alpha, max_iter=2000)
+
+def display_centralities_in_table(graph: dict, alpha: float = 0.8):
+    degree_centralities = get_all_degree_centralities(graph=graph)
+    closeness_centralities = get_all_closeness_centralities(graph=graph)
+    betweenness_centralities = get_all_betweenness_centralities(graph=graph)
+    pagerank_centralities = get_all_pagerank_centralities(graph=graph, alpha=alpha)
+
+    # Create a DataFrame for clean display
+    data = {
+        "Degree": degree_centralities,
+        "Closeness": closeness_centralities,
+        "Betweenness": betweenness_centralities,
+        "PageRank": pagerank_centralities,
+    }
+    df = pd.DataFrame(data)
+
+    # Display nicely
+    print("\nCentrality Measures Table:\n")
+    print(df.round(4))  # round for readability
+
+    return df    
     
 
 if __name__ == "__main__":
@@ -67,12 +90,15 @@ if __name__ == "__main__":
                         "C": {"B", "D"},
                         "D": {"C"}}
 
-    degree_centralities = get_all_degree_centralities(graph=florentine_family_graph)
-    closeness_centralities = get_all_closeness_centralities(graph=florentine_family_graph)
-    betweenness_centralities = get_all_betweenness_centralities(graph=florentine_family_graph)
+    # degree_centralities = get_all_degree_centralities(graph=florentine_family_graph)
+    # closeness_centralities = get_all_closeness_centralities(graph=florentine_family_graph)
+    # betweenness_centralities = get_all_betweenness_centralities(graph=florentine_family_graph)
+    # pagerank_centralities = get_all_pagerank_centralities(graph=florentine_family_graph)
 
-    print(f"Degree Centralities: {degree_centralities}")
-    print(f"Closeness Centralities: {closeness_centralities}")
-    print(f"Betweenness Centralities: {betweenness_centralities}")
+    # print(f"Degree Centralities: {degree_centralities}")
+    # print(f"Closeness Centralities: {closeness_centralities}")
+    # print(f"Betweenness Centralities: {betweenness_centralities}")
+    # print(f"Pagerank Centralities: {pagerank_centralities}")
 
+    display_centralities_in_table(graph=florentine_family_graph)
     
