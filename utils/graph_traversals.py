@@ -12,16 +12,16 @@ def bfs_shortest_paths(graph:dict, start_node: str, master_seen_paths: set, mast
         return tup
     
     def all_betweenness_counts_on_path(start_node, end_node, seen_paths: set, parents: dict, betweenness_counts:dict):
-        print(f"Betweenness for {start_node} -> {end_node}")
-        print(f"SEEN PATHS: {seen_paths}")
+        # print(f"Betweenness for {start_node} -> {end_node}")
+        # print(f"SEEN PATHS: {seen_paths}")
         runner = parents[end_node]
 
         while runner != start_node:
             if order_path_tuple(start_node, end_node) not in seen_paths:
-                print(f"-Adding new betweenness: {runner}")
+                # print(f"-Adding new betweenness: {runner}")
                 betweenness_counts[runner] = 1 if runner not in betweenness_counts else betweenness_counts[runner] + 1
             else:
-                print(f"-Already in seeen: {start_node} -> {end_node}")
+                # print(f"-Already in seeen: {start_node} -> {end_node}")
                 break
             runner = parents[runner]
         
@@ -35,7 +35,7 @@ def bfs_shortest_paths(graph:dict, start_node: str, master_seen_paths: set, mast
     seen_nodes.add(start_node)
     queue.append(start_node)
     parents[start_node] = None
-    print(f"Run {start_node}")
+    # print(f"Run {start_node}")
     while queue:
         current_node = queue.popleft()    
         for neighbor in graph.get(current_node, []):
@@ -48,7 +48,7 @@ def bfs_shortest_paths(graph:dict, start_node: str, master_seen_paths: set, mast
                     betweenness_counts = all_betweenness_counts_on_path(start_node=start_node, end_node=neighbor, parents=parents, seen_paths=seen_paths, betweenness_counts=master_betweenness_counts)
                     new_paths = {order_path_tuple(start_node, neighbor), order_path_tuple(current_node, neighbor)}
                     seen_paths.update(new_paths)
-                    print(f"Found a new shortest path from {start_node} -> {neighbor}: {master_betweenness_counts}")
+                    # print(f"Found a new shortest path from {start_node} -> {neighbor}: {master_betweenness_counts}")
                 elif start_node == current_node:
                     # print(f"{start_node} Path too short", end=": ")
                     seen_paths.add(order_path_tuple(current_node, neighbor))

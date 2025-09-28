@@ -19,93 +19,93 @@ class FlorentineFamilies(Enum):
 
 def create_florentine_adj_list():
     adj_list: FlorentineFamilies = {}
-    adj_list[FlorentineFamilies.PERUZZI] = [
-        FlorentineFamilies.BISCHERI,
-        FlorentineFamilies.STROZZI,
-        FlorentineFamilies.CASTELLANI
+    adj_list[FlorentineFamilies.PERUZZI.value] = [
+        FlorentineFamilies.BISCHERI.value,
+        FlorentineFamilies.STROZZI.value,
+        FlorentineFamilies.CASTELLANI.value
     ]
 
-    adj_list[FlorentineFamilies.BISCHERI] = [
-        FlorentineFamilies.PERUZZI,
-        FlorentineFamilies.STROZZI,
-        FlorentineFamilies.GUADAGNI
+    adj_list[FlorentineFamilies.BISCHERI.value] = [
+        FlorentineFamilies.PERUZZI.value,
+        FlorentineFamilies.STROZZI.value,
+        FlorentineFamilies.GUADAGNI.value
     ]
 
-    adj_list[FlorentineFamilies.LAMBERTESCHI] = [
-        FlorentineFamilies.GUADAGNI
+    adj_list[FlorentineFamilies.LAMBERTESCHI.value] = [
+        FlorentineFamilies.GUADAGNI.value
     ]
 
-    adj_list[FlorentineFamilies.STROZZI] = [
-        FlorentineFamilies.PERUZZI,
-        FlorentineFamilies.BISCHERI,
-        FlorentineFamilies.CASTELLANI,
-        FlorentineFamilies.RIDOLFI
+    adj_list[FlorentineFamilies.STROZZI.value] = [
+        FlorentineFamilies.PERUZZI.value,
+        FlorentineFamilies.BISCHERI.value,
+        FlorentineFamilies.CASTELLANI.value,
+        FlorentineFamilies.RIDOLFI.value
     ]
 
-    adj_list[FlorentineFamilies.GUADAGNI] = [
-        FlorentineFamilies.BISCHERI,
-        FlorentineFamilies.LAMBERTESCHI,
-        FlorentineFamilies.TORNABUONI,
-        FlorentineFamilies.ALBIZZI
+    adj_list[FlorentineFamilies.GUADAGNI.value] = [
+        FlorentineFamilies.BISCHERI.value,
+        FlorentineFamilies.LAMBERTESCHI.value,
+        FlorentineFamilies.TORNABUONI.value,
+        FlorentineFamilies.ALBIZZI.value
     ]
 
-    adj_list[FlorentineFamilies.CASTELLANI] = [
-        FlorentineFamilies.PERUZZI,
-        FlorentineFamilies.STROZZI,
-        FlorentineFamilies.BARBADORI
+    adj_list[FlorentineFamilies.CASTELLANI.value] = [
+        FlorentineFamilies.PERUZZI.value,
+        FlorentineFamilies.STROZZI.value,
+        FlorentineFamilies.BARBADORI.value
     ]
 
-    adj_list[FlorentineFamilies.RIDOLFI] = [
-        FlorentineFamilies.STROZZI,
-        FlorentineFamilies.TORNABUONI,
-        FlorentineFamilies.MEDICI
+    adj_list[FlorentineFamilies.RIDOLFI.value] = [
+        FlorentineFamilies.STROZZI.value,
+        FlorentineFamilies.TORNABUONI.value,
+        FlorentineFamilies.MEDICI.value
     ]
 
-    adj_list[FlorentineFamilies.TORNABUONI] = [
-        FlorentineFamilies.MEDICI,
-        FlorentineFamilies.GUADAGNI,
-        FlorentineFamilies.RIDOLFI
+    adj_list[FlorentineFamilies.TORNABUONI.value] = [
+        FlorentineFamilies.MEDICI.value,
+        FlorentineFamilies.GUADAGNI.value,
+        FlorentineFamilies.RIDOLFI.value
     ]
 
-    adj_list[FlorentineFamilies.BARBADORI] = [
-        FlorentineFamilies.CASTELLANI,
-        FlorentineFamilies.MEDICI
+    adj_list[FlorentineFamilies.BARBADORI.value] = [
+        FlorentineFamilies.CASTELLANI.value,
+        FlorentineFamilies.MEDICI.value
     ]
 
-    adj_list[FlorentineFamilies.MEDICI] = [
-        FlorentineFamilies.RIDOLFI,
-        FlorentineFamilies.TORNABUONI,
-        FlorentineFamilies.BARBADORI,
-        FlorentineFamilies.ALBIZZI,
-        FlorentineFamilies.ACCIAIUOLI,
-        FlorentineFamilies.SALVIATI,
+    adj_list[FlorentineFamilies.MEDICI.value] = [
+        FlorentineFamilies.RIDOLFI.value,
+        FlorentineFamilies.TORNABUONI.value,
+        FlorentineFamilies.BARBADORI.value,
+        FlorentineFamilies.ALBIZZI.value,
+        FlorentineFamilies.ACCIAIUOLI.value,
+        FlorentineFamilies.SALVIATI.value,
     ]
 
-    adj_list[FlorentineFamilies.ALBIZZI] = [
-        FlorentineFamilies.GUADAGNI,
-        FlorentineFamilies.GINORI,
-        FlorentineFamilies.MEDICI
+    adj_list[FlorentineFamilies.ALBIZZI.value] = [
+        FlorentineFamilies.GUADAGNI.value,
+        FlorentineFamilies.GINORI.value,
+        FlorentineFamilies.MEDICI.value
     ]
 
-    adj_list[FlorentineFamilies.ACCIAIUOLI] = [
-        FlorentineFamilies.MEDICI
+    adj_list[FlorentineFamilies.ACCIAIUOLI.value] = [
+        FlorentineFamilies.MEDICI.value
     ]
 
-    adj_list[FlorentineFamilies.SALVIATI] = [
-        FlorentineFamilies.MEDICI,
-        FlorentineFamilies.PAZZI
+    adj_list[FlorentineFamilies.SALVIATI.value] = [
+        FlorentineFamilies.MEDICI.value,
+        FlorentineFamilies.PAZZI.value
     ]
 
-    adj_list[FlorentineFamilies.GINORI] = [
-        FlorentineFamilies.ALBIZZI
+    adj_list[FlorentineFamilies.GINORI.value] = [
+        FlorentineFamilies.ALBIZZI.value
     ]
 
-    adj_list[FlorentineFamilies.PUCCI] = [
+    adj_list[FlorentineFamilies.PUCCI.value] = [
 
     ]
 
-    adj_list[FlorentineFamilies.PAZZI] = [
-        FlorentineFamilies.SALVIATI
+    adj_list[FlorentineFamilies.PAZZI.value] = [
+        FlorentineFamilies.SALVIATI.value
     ]
 
     return adj_list
