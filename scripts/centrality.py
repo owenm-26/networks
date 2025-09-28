@@ -1,5 +1,5 @@
 from utils.florentine_families import create_florentine_adj_list
-from utils.graph_traversals import bfs_distance_between_nodes
+from utils.graph_traversals import bfs_distance_between_nodes, bfs_shortest_paths
 
 def get_all_degree_centralities(graph: dict) -> list:
     degree_centralities = []
@@ -18,7 +18,25 @@ def get_all_closeness_centralities(graph:dict) -> list:
     return closeness_centralities
 
 def get_all_betweenness_centralities(graph: dict) -> list:
-    return []
+    betweenness_centralities = []
+
+    # get the shortest paths from each node to every other node
+    all_shortest_paths = []
+    seen_paths = set()
+    for node in graph.keys():
+        shortest_paths, new_paths = bfs_shortest_paths(graph=graph, start_node=node, master_seen_paths=seen_paths, master_betweenness_counts={})
+        seen_paths.update(new_paths)
+        all_shortest_paths.append(shortest_paths)
+
+    # count the number of times each node is between a path
+    node_betweenness_counts = {node: 0 for node in graph.keys()}
+    for path in all_shortest_paths:
+        for node_count in path:
+            node_betweenness_counts[node_count] += path[node_count]
+    print(node_betweenness_counts)
+    
+
+    return betweenness_centralities
 
 def get_all_pagerank_centralities(graph: dict, alpha: float = 1.2) -> list:
     return []
@@ -26,8 +44,24 @@ def get_all_pagerank_centralities(graph: dict, alpha: float = 1.2) -> list:
 
 if __name__ == "__main__":
     florentine_family_graph = create_florentine_adj_list()
+    fake_graph = {"A": {"B","C"},
+                    "B": {"A", "C", "E"},
+                    "C": {"A","B","D"},
+                    "D": {"C"},
+                    "E": {"B"}
+        }
+    
+    small_fake_graph = {"A": {"B"},
+                        "B": {"A", "C"},
+                        "C": {"B", "D"},
+                        "D": {"C"}}
 
     degree_centralities = get_all_degree_centralities(graph=florentine_family_graph)
     closeness_centralities = get_all_closeness_centralities(graph=florentine_family_graph)
-    print(f"Degree Centralities: {degree_centralities}")
-    print(f"Closeness Centralities: {closeness_centralities}")
+    betweenness_centralities = get_all_betweenness_centralities(graph=fake_graph)
+
+    # print(f"Degree Centralities: {degree_centralities}")
+    # print(f"Closeness Centralities: {closeness_centralities}")
+    print(f"Betweenness Centralities: {betweenness_centralities}")
+
+    
