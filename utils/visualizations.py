@@ -31,4 +31,6 @@ def create_scatter_plot(x, y, x_label, y_label, title, labels=None, paradox_line
         plt.legend()
     plt.grid(True)
     plt.tight_layout()
+    plt.savefig(f"{title}.png")
     plt.show()
+    
