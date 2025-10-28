@@ -1,5 +1,5 @@
 from collections import deque
-from utils.convert import convert_data_to_adj_list
+from convert_raw_data_to_adj import convert_data_to_adj_list
 
 def bfs_shortest_paths(graph:dict, start_node: str, master_seen_paths: set, master_betweenness_counts: dict):
 

@@ -3,7 +3,7 @@ import scipy
 import scipy.io
 import numpy as np
 import os
-from utils.path_constants import data_dir_path, project_root
+from path_constants import data_dir_path, project_root
 
 
 def get_data_paths(project_root:str):
@@ -36,7 +36,6 @@ def convert_data_to_adj_list(filename: str):
 	for k in adj_list:
 		adj_list[k].sort()
 
-	# Print adjacency list
 	return adj_list
 
 if __name__ == "__main__":

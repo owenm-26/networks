@@ -1,13 +1,13 @@
-from utils.graph_traversals import bfs_distance_between_nodes
-from utils.convert import get_data_paths
-from utils.visualizations import create_scatter_plot
+from utils.general.graph_traversals import bfs_distance_between_nodes
+from utils.general.convert_raw_data_to_adj import get_data_paths
+from utils.general.visualizations import create_scatter_plot
 import os
 import pickle
 import time
-from utils.multithreading import run_multithreaded_func_on_all_files, run_func_on_all_files, run_multiprocessing_func_on_all_files_distance
-from utils.path_constants import data_dir_path, project_root
+from utils.general.multithreading import run_multithreaded_func_on_all_files, run_func_on_all_files, run_multiprocessing_func_on_all_files_distance
+from utils.general.path_constants import data_dir_path, project_root
 from networkx import average_shortest_path_length, diameter, connected_components
-from utils.networkx import create_networkx_graph_from_adj_list
+from utils.general.networkx import create_networkx_graph_from_adj_list
 
 def get_distances_between_all_pairs_of_nodes(graph: dict):
     distances = []

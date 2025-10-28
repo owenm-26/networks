@@ -1,6 +1,6 @@
-from utils.convert import  get_data_paths
-from utils.visualizations import create_scatter_plot
-from utils.graph_traversals import get_largest_connected_component
+from utils.general.convert_raw_data_to_adj import  get_data_paths
+from utils.general.visualizations import create_scatter_plot
+from utils.general.graph_traversals import get_largest_connected_component
 import os
 import pickle
 

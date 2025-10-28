@@ -1,7 +1,7 @@
-from utils.florentine_families import create_florentine_adj_list
-from utils.graph_traversals import bfs_distance_between_nodes
+from utils.specific.florentine_families import create_florentine_adj_list
+from utils.general.graph_traversals import bfs_distance_between_nodes
 import networkx as nx
-from utils.networkx import create_networkx_graph_from_adj_list
+from utils.general.networkx import create_networkx_graph_from_adj_list
 import pandas as pd
 
 def get_all_degree_centralities(graph: dict) -> list:

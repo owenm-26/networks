@@ -1,5 +1,5 @@
 import networkx as nx
-from .florentine_families import create_florentine_adj_list
+from specific.florentine_families import create_florentine_adj_list
 import matplotlib.pyplot as plt
 
 
