@@ -3,8 +3,9 @@ import scipy
 import scipy.io
 import numpy as np
 import os
-from path_constants import data_dir_path, project_root
-
+from utils.general.path_constants import data_dir_path, project_root
+from utils.specific.node import Node
+import collections
 
 def get_data_paths(project_root:str):
 	data_dir = os.path.join(project_root, "data")
@@ -23,6 +24,7 @@ def convert_data_to_adj_list(filename: str):
 	if A is None:
 		raise ValueError(f"No adjacency matrix 'A' found in the {filename} file.")
 
+
 	# Convert A to COO format if it isn't already
 	A = scipy.sparse.coo_matrix(A)
 
@@ -38,9 +40,49 @@ def convert_data_to_adj_list(filename: str):
 
 	return adj_list
 
+def convert_raw_data_to_attributes(filename: str):
+    # Load .mat file
+	data = scipy.io.loadmat(filename)
+
+	# Extract adjacency matrix and local_info
+	A = data.get("A")
+	local_info = data.get("local_info")
+
+	if A is None:
+		raise ValueError(f"No adjacency matrix 'A' found in {filename}.")
+	if local_info is None:
+		raise ValueError(f"No 'local_info' found in {filename}.")
+
+	# Convert to sparse COO format
+	A = scipy.sparse.coo_matrix(A)
+
+	# Build adjacency list
+	adj_list = collections.defaultdict(set)
+	for i, j in zip(A.row, A.col):
+		if i != j:  # ignore self-loops
+			adj_list[i].add(j)
+			adj_list[j].add(i)
+
+	# Build node attributes
+	node_dict = {}
+	for i in range(local_info.shape[0]):
+		info = local_info[i]
+		degree = len(adj_list[i])
+		node = Node(
+			student_status=info[0],
+			gender=info[1],
+			major=info[2],
+			vertex_degree=degree
+		)
+		node_dict[i] = node
+	
+	return node_dict
+    
 if __name__ == "__main__":
-	project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+	project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 	data_dir_path= os.path.join(project_root, "data")
 	american = os.path.join(data_dir_path, get_data_paths(project_root)[1]) 
-	print(american)
-	print(len(convert_data_to_adj_list(american)))
+	adj = convert_data_to_adj_list(american)
+	attr = convert_raw_data_to_attributes(american)
+	# print(adj)
+	print(attr)
