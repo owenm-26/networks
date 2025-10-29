@@ -1,6 +1,6 @@
 from utils.general.convert_raw_data_to_adj import convert_raw_data_to_attributes, get_data_paths, adj_list_to_adj_matrix
+from utils.general.visualizations import create_modularity_charts
 import os
-import networkx as nx
 from utils.specific.node import Node
 import enum
 import time
@@ -62,7 +62,6 @@ def get_modularity_metrics_of_all_files(data_dir_path, file_list: list, run_limi
 
         # get input data
         attributes_map, adj_list = convert_raw_data_to_attributes(filename=file_name) 
-        # adj_matrix, index_mapping = adj_list_to_adj_matrix(adj_list=adj_list)
         mx2 = 0
         for key in adj_list:
             mx2 += len(adj_list[key])
@@ -79,33 +78,32 @@ def get_modularity_metrics_of_all_files(data_dir_path, file_list: list, run_limi
             break
     return modularities
 
-import networkx as nx
+def get_network_sizes(data_dir_path, file_list:list) -> list:
+    """Computes the number of nodes in each network and writes to a pickle"""
+    save_file =  "network_sizes.pkl"
 
-def fast_modularity(adj_list, attributes_map, comparison_mode):
-    G = nx.Graph()
-    for node, neighbors in adj_list.items():
-        for neighbor in neighbors:
-            G.add_edge(node, neighbor)
-    # group nodes by attribute
-    communities = {}
-    for node, attr in attributes_map.items():
-        key = getattr(attr, comparison_mode.value)
-        communities.setdefault(key, set()).add(node)
-    # compute modularity
-    return nx.community.modularity(G, list(communities.values()))
-
+    if os.path.exists(save_file):
+        # Load precomputed data
+        with open(save_file, "rb") as f:
+            network_sizes = pickle.load(f)
+        print("Loaded precomputed data.")
+    else:
+        network_sizes = []
+        
+        for file in file_list:
+            file_name = os.path.join(data_dir_path, file)
+            _, adj_list = convert_raw_data_to_attributes(filename=file_name) 
+            network_sizes.append(len(adj_list))
+        
+        with open(os.path.join(project_root, save_file), "wb") as f:
+            pickle.dump(network_sizes, f)
+        print("Computed data")
+    return network_sizes
 
 if __name__ == "__main__":
-    # example
+    # path constants
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     data_dir_path= os.path.join(project_root, "data")
-    # american = os.path.join(data_dir_path, get_data_paths(project_root)[1]) 
-
-    # # get input data
-    # attributes_map, adj_list = convert_raw_data_to_attributes(filename=american)    
-    # gender_modularity = compute_modularity(adj_list=adj_list, attributes_map=attributes_map, comparison_mode=Comparison.GENDER)
-    # print(f"gender_modularity: {gender_modularity}")
-
     save_file = os.path.join(project_root, "modularities.pkl")
 
     if os.path.exists(save_file):
@@ -118,3 +116,8 @@ if __name__ == "__main__":
         with open(save_file, "wb") as f:
                 pickle.dump(modularities, f)
         print("Computed and saved data.")
+
+    network_sizes = get_network_sizes(data_dir_path=data_dir_path, file_list=get_data_paths(project_root=project_root))
+    
+    create_modularity_charts()
+
