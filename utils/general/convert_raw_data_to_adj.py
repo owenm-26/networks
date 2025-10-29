@@ -76,13 +76,38 @@ def convert_raw_data_to_attributes(filename: str):
 		)
 		node_dict[i] = node
 	
-	return node_dict
+	return node_dict, adj_list
+
+def adj_list_to_adj_matrix(adj_list:dict) -> list:
+	n = len(adj_list)
+	nodes = set(adj_list.keys())
+	for neighbors in adj_list.values():
+		nodes.update(neighbors)
+    
+    # Step 2: build mapping
+	index_mapping = {node: idx for idx, node in enumerate(nodes)}
+	n = len(nodes)
+    
+    # Step 3: build matrix
+	matrix = [[0] * n for _ in range(n)]
+
+	# Step 4: fill in edges
+	for node, neighbors in adj_list.items():
+		i = index_mapping[node]
+		for neighbor in neighbors:
+			j = index_mapping[neighbor]
+			matrix[i][j] = 1
+			matrix[j][i] = 1  # if undirected
+
+	return matrix, index_mapping
+
     
 if __name__ == "__main__":
 	project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 	data_dir_path= os.path.join(project_root, "data")
 	american = os.path.join(data_dir_path, get_data_paths(project_root)[1]) 
 	adj = convert_data_to_adj_list(american)
-	attr = convert_raw_data_to_attributes(american)
+	attr, adj_list = convert_raw_data_to_attributes(american)
 	# print(adj)
 	print(attr)
+	# adj_list_to_adj_matrix(adj_list=adj_list)
